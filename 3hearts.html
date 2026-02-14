@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 Choose Your Heart 💝</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff6b9d 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            font-size: 20px;
+            opacity: 0;
+            pointer-events: none;
+            animation: floatParticle 4s linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        .title {
+            color: #fff;
+            font-size: 3.5em;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 
+                0 0 20px rgba(255, 107, 157, 0.8),
+                0 0 40px rgba(255, 107, 157, 0.6),
+                3px 3px 8px rgba(0, 0, 0, 0.4);
+            font-weight: 800;
+            letter-spacing: 3px;
+            animation: titlePulse 3s ease-in-out infinite;
+            z-index: 10;
+            position: relative;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 
+                    0 0 20px rgba(255, 107, 157, 0.8),
+                    0 0 40px rgba(255, 107, 157, 0.6),
+                    3px 3px 8px rgba(0, 0, 0, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 
+                    0 0 30px rgba(255, 107, 157, 1),
+                    0 0 60px rgba(255, 107, 157, 0.8),
+                    3px 3px 8px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+            font-weight: 300;
+            font-style: italic;
+            z-index: 10;
+            position: relative;
+        }
+
+        .hearts-container {
+            display: flex;
+            gap: 80px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 40px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .heart-wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .heart-wrapper:hover {
+            transform: scale(1.1);
+        }
+
+        .heart {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            position: relative;
+            transform: rotate(-45deg);
+            cursor: pointer;
+            box-shadow: 
+                0 20px 60px rgba(255, 107, 157, 0.6),
+                inset 0 0 40px rgba(255, 255, 255, 0.3);
+            animation: heartBeat 2s ease-in-out infinite;
+            border: 4px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.4s ease;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.3);
+            border: 4px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .heart::before {
+            top: -100px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 100px;
+            top: 0;
+        }
+
+        .heart-wrapper:hover .heart {
+            box-shadow: 
+                0 25px 80px rgba(255, 107, 157, 0.9),
+                inset 0 0 50px rgba(255, 255, 255, 0.4);
+            transform: rotate(-45deg) scale(1.05);
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: rotate(-45deg) scale(1);
+            }
+            25% {
+                transform: rotate(-45deg) scale(1.08);
+            }
+            50% {
+                transform: rotate(-45deg) scale(1);
+            }
+            75% {
+                transform: rotate(-45deg) scale(1.08);
+            }
+        }
+
+        .heart-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            font-size: 3em;
+            font-weight: 800;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Modal for messages */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 30px;
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 
+                0 30px 90px rgba(0, 0, 0, 0.5),
+                inset 0 0 50px rgba(255, 255, 255, 0.1);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            animation: slideUp 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-content.wrong {
+            animation: shake 0.5s, slideUp 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-20px); }
+            75% { transform: translateX(20px); }
+        }
+
+        .love-message {
+            color: white;
+            font-size: 1.4em;
+            line-height: 2;
+            font-weight: 400;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+            margin: 30px 0;
+        }
+
+        .wrong-message {
+            color: #fff;
+            font-size: 2em;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            margin: 20px 0;
+        }
+
+        .close-btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffa8c5 100%);
+            color: white;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            padding: 15px 50px;
+            font-size: 1.2em;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .close-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.7);
+            border-color: #fff;
+        }
+
+        .sparkle-effect {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: sparkleFloat 1.5s forwards;
+        }
+
+        @keyframes sparkleFloat {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(2) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(360deg);
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            z-index: 9998;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hearts-container {
+                gap: 50px;
+            }
+
+            .heart {
+                width: 150px;
+                height: 150px;
+            }
+
+            .heart::before,
+            .heart::after {
+                width: 150px;
+                height: 150px;
+            }
+
+            .heart::before {
+                top: -75px;
+            }
+
+            .heart::after {
+                left: 75px;
+            }
+
+            .heart-number {
+                font-size: 2em;
+            }
+
+            .title {
+                font-size: 2.5em;
+            }
+
+            .subtitle {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">💖 Choose A Heart 💖</h1>
+    <p class="subtitle">One heart holds a special surprise just for you... 💝</p>
+
+    <div class="hearts-container">
+        <div class="heart-wrapper" onclick="chooseHeart(1)">
+            <div class="heart">
+                <div class="heart-number">1</div>
+            </div>
+        </div>
+
+        <div class="heart-wrapper" onclick="chooseHeart(2)">
+            <div class="heart">
+                <div class="heart-number">2</div>
+            </div>
+        </div>
+
+        <div class="heart-wrapper" onclick="chooseHeart(3)">
+            <div class="heart">
+                <div class="heart-number">3</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for messages -->
+    <div class="modal" id="modal">
+        <div class="modal-content" id="modalContent">
+            <div id="messageContent"></div>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particles = ['💕', '💖', '💗', '💓', '💝', '✨', '⭐', '🌟'];
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.innerHTML = particles[Math.floor(Math.random() * particles.length)];
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particle.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                document.body.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 4000);
+            }, 400);
+        }
+
+        createParticles();
+
+        // The special heart (randomly chosen or set to a specific one)
+        const specialHeart = 2; // Heart number 2 has the special message
+
+        function chooseHeart(heartNumber) {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+            const messageContent = document.getElementById('messageContent');
+
+            if (heartNumber === specialHeart) {    
+                
+                // Correct heart chosen!
+                modalContent.classList.remove('wrong');
+                messageContent.innerHTML = `
+                    <h2 style="color: #fff; font-size: 2.5em; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 107, 157, 0.8);">
+                        🎉 You Found It! 🎉
+                    </h2>
+                    <div class="love-message">
+                        My love ❤️, every time I think about you, my heart feels fuller and warmer 🥰. 
+                        You're not just my girlfriend, you're my peace, my happiness, and my favorite person in this whole world 🌎💞. 
+                        Your smile is my sunshine on the darkest days ☀️ and your voice is my comfort after every storm 🌧️. 
+                        Being with you feels like a beautiful dream I never want to wake up from 💫. 
+                        I promise to always care for you, respect you, and love you more with each passing day 💍💕. 
+                        You are my today and all of my tomorrows ❤️✨
+                    </div>
+                `;
+
+                // Create celebration effects
+                createCelebration();
+                setTimeout(() => {
+        
+                    window.location.href = "lovesubmission.html";
+    
+                }, 3000)
+            } else {
+                // Wrong heart chosen
+                modalContent.classList.add('wrong');
+                const wrongMessages = [
+                    "Oops! Wrong Heart! 💔<br>Try another one... 💝",
+                    "Not This One! 😢<br>The special message is in another heart... 💕",
+                    "So Close! 💭<br>But this isn't the right heart... Try again! 💖"
+                ];
+                
+                messageContent.innerHTML = `
+                    <div class="wrong-message">
+                        ${wrongMessages[Math.floor(Math.random() * wrongMessages.length)]}
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.3em; margin-top: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+                        💡 Hint: There are ${3 - 1} other hearts to choose from!
+                    </p>
+                `;
+
+                // Create sad effect
+                createSadEffect();
+            }
+
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('show');
+        }
+
+        // Celebration effects for correct choice
+        function createCelebration() {
+            // Sparkles
+            for (let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle-effect';
+                    sparkle.innerHTML = '✨';
+                    sparkle.style.left = Math.random() * 100 + 'vw';
+                    sparkle.style.top = Math.random() * 100 + 'vh';
+                    sparkle.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    document.body.appendChild(sparkle);
+
+                    setTimeout(() => sparkle.remove(), 1500);
+                }, i * 50);
+            }
+
+            // Confetti
+            const colors = ['#ff6b9d', '#ffa8c5', '#764ba2', '#fff', '#ffeb3b', '#ff5252'];
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = -20 + 'px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+
+            // Hearts explosion
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'sparkle-effect';
+                    heart.innerHTML = ['💖', '💕', '💗', '💓', '💝'][Math.floor(Math.random() * 5)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = Math.random() * 100 + 'vh';
+                    heart.style.fontSize = (Math.random() * 40 + 20) + 'px';
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => heart.remove(), 1500);
+                }, i * 80);
+            }
+        }
+
+        // Sad effect for wrong choice
+        function createSadEffect() {
+            const sadEmojis = ['💔', '😢', '😞', '💭'];
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const sad = document.createElement('div');
+                    sad.className = 'sparkle-effect';
+                    sad.innerHTML = sadEmojis[Math.floor(Math.random() * sadEmojis.length)];
+                    sad.style.left = Math.random() * 100 + 'vw';
+                    sad.style.top = Math.random() * 100 + 'vh';
+                    sad.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    document.body.appendChild(sad);
+
+                    setTimeout(() => sad.remove(), 1500);
+                }, i * 100);
+            }
+        }
+
+        // Close modal on clicking outside
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

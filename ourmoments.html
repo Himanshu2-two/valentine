@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story Gallery 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: 
+                linear-gradient(135deg, #fff0f5 0%, #ffe4e8 25%, #ffd6e0 50%, #ffc9d8 75%, #ffb6c1 100%);
+            min-height: 100vh;
+            padding: 3rem 2rem;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(255, 182, 193, 0.6) 0%, transparent 40%),
+                radial-gradient(circle at 85% 75%, rgba(255, 105, 180, 0.5) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(255, 192, 203, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 30% 80%, rgba(255, 228, 225, 0.5) 0%, transparent 40%),
+                radial-gradient(circle at 70% 20%, rgba(255, 240, 245, 0.6) 0%, transparent 45%);
+            pointer-events: none;
+            animation: bgPulse 12s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+                radial-gradient(circle, rgba(255, 182, 193, 0.6) 2px, transparent 2px),
+                radial-gradient(circle, rgba(255, 255, 255, 0.7) 1.5px, transparent 1.5px);
+            background-size: 50px 50px, 80px 80px, 100px 100px;
+            background-position: 0 0, 40px 40px, 20px 20px;
+            opacity: 0.3;
+            pointer-events: none;
+            animation: bokehMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { 
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes bokehMove {
+            0% { background-position: 0 0, 40px 40px, 20px 20px; }
+            100% { background-position: 50px 50px, 90px 90px, 70px 70px; }
+        }
+
+        /* Floating rose petals */
+        .rose-petal {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(ellipse at center, #ff69b4 0%, #ff1493 50%, #c71585 100%);
+            border-radius: 50% 0 50% 0;
+            opacity: 0.6;
+            pointer-events: none;
+            animation: petalFall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes petalFall {
+            0% {
+                top: -20px;
+                transform: rotate(0deg) translateX(0);
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                top: 100vh;
+                transform: rotate(360deg) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Romantic light particles */
+        .light-particle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 182, 193, 0.8) 50%, transparent 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat linear infinite;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(255, 192, 203, 0.8);
+        }
+
+        @keyframes particleFloat {
+            0% {
+                bottom: -10px;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                bottom: 100vh;
+                opacity: 0;
+                transform: translateX(50px);
+            }
+        }
+
+        /* Heart shapes in background */
+        .bg-heart {
+            position: fixed;
+            font-size: 40px;
+            opacity: 0.1;
+            pointer-events: none;
+            animation: bgHeartFloat linear infinite;
+            z-index: 0;
+            color: #ff1493;
+        }
+
+        @keyframes bgHeartFloat {
+            0% {
+                bottom: -50px;
+                opacity: 0.15;
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 0.08;
+            }
+            100% {
+                bottom: 100vh;
+                opacity: 0;
+                transform: scale(1.5) rotate(180deg);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 4rem;
+            color: #c2185b;
+            margin-bottom: 1rem;
+            text-shadow: 
+                3px 3px 6px rgba(0,0,0,0.1),
+                0 0 30px rgba(255, 105, 180, 0.5),
+                0 0 50px rgba(255, 105, 180, 0.3);
+            animation: titleFloat 3s ease-in-out infinite;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #d81b60;
+            margin-bottom: 4rem;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: subtitlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes subtitlePulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            padding: 2rem;
+        }
+
+        .photo-frame {
+            position: relative;
+            background: 
+                linear-gradient(145deg, #ffffff, #f8f8f8),
+                linear-gradient(to right, #f5f5f5, #ffffff, #f5f5f5);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.25),
+                0 10px 20px rgba(0,0,0,0.15),
+                inset 0 0 0 3px rgba(255,255,255,0.9),
+                inset 0 0 30px rgba(255,182,193,0.15),
+                inset 5px 5px 10px rgba(0,0,0,0.05),
+                inset -5px -5px 10px rgba(255,255,255,0.8);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            animation: frameFloat 6s ease-in-out infinite;
+            border: 4px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .photo-frame:nth-child(1) { animation-delay: 0s; }
+        .photo-frame:nth-child(2) { animation-delay: 1s; }
+        .photo-frame:nth-child(3) { animation-delay: 2s; }
+        .photo-frame:nth-child(4) { animation-delay: 3s; }
+        .photo-frame:nth-child(5) { animation-delay: 4s; }
+        .photo-frame:nth-child(6) { animation-delay: 5s; }
+
+        @keyframes frameFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(
+                45deg,
+                #ff6b6b,
+                #ee5a6f,
+                #f06292,
+                #ba68c8,
+                #9575cd,
+                #f06292,
+                #ee5a6f,
+                #ff6b6b
+            );
+            background-size: 300% 300%;
+            border-radius: 15px;
+            z-index: -1;
+            animation: gradientShift 3s ease infinite;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .photo-frame:hover::before {
+            opacity: 1;
+        }
+
+        .photo-frame:hover {
+            transform: translateY(-25px) scale(1.08) rotate(3deg);
+            box-shadow: 
+                0 35px 70px rgba(0,0,0,0.35),
+                0 15px 35px rgba(255, 105, 180, 0.5),
+                inset 0 0 0 3px rgba(255,255,255,1),
+                inset 0 0 40px rgba(255,182,193,0.3),
+                inset 8px 8px 15px rgba(0,0,0,0.08),
+                inset -8px -8px 15px rgba(255,255,255,0.9),
+                0 0 60px rgba(255, 105, 180, 0.3);
+            border-color: rgba(255, 192, 203, 0.3);
+        }
+
+        .photo-inner {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #f0f0f0;
+            aspect-ratio: 4/3;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .photo-inner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.3),
+                transparent
+            );
+            transition: left 0.5s ease;
+        }
+
+        .photo-frame:hover .photo-inner::after {
+            left: 100%;
+        }
+
+        .photo-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+            filter: brightness(0.95) contrast(1.05);
+        }
+
+        .photo-frame:hover .photo-inner img {
+            transform: scale(1.15) rotate(2deg);
+            filter: brightness(1.1) contrast(1.1) saturate(1.2);
+        }
+
+        .photo-caption {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #d81b60;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .photo-frame:hover .photo-caption {
+            color: #c2185b;
+            transform: scale(1.1);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .corner-decoration {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            transition: all 0.4s ease;
+        }
+
+        .corner-decoration::before,
+        .corner-decoration::after {
+            content: '';
+            position: absolute;
+            background: linear-gradient(135deg, #d4af37, #ffd700);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .corner-decoration.top-left {
+            top: 5px;
+            left: 5px;
+        }
+
+        .corner-decoration.top-left::before {
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .corner-decoration.top-left::after {
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 40px;
+            border-radius: 2px;
+        }
+
+        .corner-decoration.top-right {
+            top: 5px;
+            right: 5px;
+        }
+
+        .corner-decoration.top-right::before {
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .corner-decoration.top-right::after {
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 40px;
+            border-radius: 2px;
+        }
+
+        .corner-decoration.bottom-left {
+            bottom: 5px;
+            left: 5px;
+        }
+
+        .corner-decoration.bottom-left::before {
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .corner-decoration.bottom-left::after {
+            bottom: 0;
+            left: 0;
+            width: 4px;
+            height: 40px;
+            border-radius: 2px;
+        }
+
+        .corner-decoration.bottom-right {
+            bottom: 5px;
+            right: 5px;
+        }
+
+        .corner-decoration.bottom-right::before {
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .corner-decoration.bottom-right::after {
+            bottom: 0;
+            right: 0;
+            width: 4px;
+            height: 40px;
+            border-radius: 2px;
+        }
+
+        .photo-frame:hover .corner-decoration::before,
+        .photo-frame:hover .corner-decoration::after {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            box-shadow: 
+                0 0 15px rgba(255, 215, 0, 0.8),
+                0 0 25px rgba(255, 215, 0, 0.5);
+        }
+
+        .photo-frame:hover .corner-decoration.top-left::before {
+            width: 50px;
+        }
+
+        .photo-frame:hover .corner-decoration.top-left::after {
+            height: 50px;
+        }
+
+        .photo-frame:hover .corner-decoration.top-right::before {
+            width: 50px;
+        }
+
+        .photo-frame:hover .corner-decoration.top-right::after {
+            height: 50px;
+        }
+
+        .photo-frame:hover .corner-decoration.bottom-left::before {
+            width: 50px;
+        }
+
+        .photo-frame:hover .corner-decoration.bottom-left::after {
+            height: 50px;
+        }
+
+        .photo-frame:hover .corner-decoration.bottom-right::before {
+            width: 50px;
+        }
+
+        .photo-frame:hover .corner-decoration.bottom-right::after {
+            height: 50px;
+        }
+
+        /* Floating hearts decoration */
+        .floating-heart {
+            position: fixed;
+            font-size: 20px;
+            animation: floatUp 4s ease-in infinite;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Cursor trail hearts */
+        .heart-cursor {
+            position: fixed;
+            pointer-events: none;
+            font-size: 18px;
+            animation: heartFloat 1.2s ease-out forwards;
+            z-index: 1000;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-120px) rotate(30deg) scale(0.5);
+            }
+        }
+
+        /* Love stamp effect */
+        .love-stamp {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.2), rgba(255, 0, 0, 0.1));
+            border: 4px double #ff1744;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            transform: rotate(15deg);
+            opacity: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(255, 23, 68, 0.3);
+        }
+
+        .photo-frame:hover .love-stamp {
+            opacity: 1;
+            transform: rotate(0deg) scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 23, 68, 0.5);
+        }
+
+        /* Ornamental design elements */
+        .frame-ornament {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            pointer-events: none;
+            opacity: 0.6;
+            transition: all 0.4s ease;
+        }
+
+        .frame-ornament.top {
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .frame-ornament.bottom {
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(180deg);
+        }
+
+        .frame-ornament svg {
+            width: 100%;
+            height: 100%;
+            fill: url(#goldGradient);
+            filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.4));
+        }
+
+        .photo-frame:hover .frame-ornament {
+            opacity: 1;
+            filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.6));
+        }
+
+        .photo-frame:hover .frame-ornament.top {
+            top: -18px;
+        }
+
+        .photo-frame:hover .frame-ornament.bottom {
+            bottom: -18px;
+        }
+
+        /* Sparkle effect on hover */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkleAnim 1s ease-out forwards;
+        }
+
+        @keyframes sparkleAnim {
+            0% {
+                opacity: 1;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💖 Our Love Story 💖</h1>
+        <p class="subtitle">Every moment with you is a treasure</p>
+
+        <div class="gallery">
+            <!-- Photo Frame 1 -->
+            <div class="photo-frame">
+                <div class="corner-decoration top-left"></div>
+                <div class="corner-decoration top-right"></div>
+                <div class="corner-decoration bottom-left"></div>
+                <div class="corner-decoration bottom-right"></div>
+                <div class="love-stamp">💕</div>
+                <div class="frame-ornament top">
+                    <svg viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#ffd700;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M50,30 Q40,20 30,30 Q20,40 30,50 Q40,60 50,70 Q60,60 70,50 Q80,40 70,30 Q60,20 50,30 Z"/>
+                    </svg>
+                </div>
+                <div class="photo-inner">
+                    <img src="images/1000186402.jpg" alt="Memory 1">
+                </div>
+            </div>
+
+            <!-- Photo Frame 2 -->
+            <div class="photo-frame">
+                <div class="corner-decoration top-left"></div>
+                <div class="corner-decoration top-right"></div>
+                <div class="corner-decoration bottom-left"></div>
+                <div class="corner-decoration bottom-right"></div>
+                <div class="love-stamp">💖</div>
+                <div class="frame-ornament top">
+                    <svg viewBox="0 0 100 100">
+                        <path d="M50,30 Q40,20 30,30 Q20,40 30,50 Q40,60 50,70 Q60,60 70,50 Q80,40 70,30 Q60,20 50,30 Z"/>
+                    </svg>
+                </div>
+                <div class="photo-inner">
+                    <img src="images/1000186404.jpg" alt="Memory 2">
+                </div>
+            </div>
+
+            <!-- Photo Frame 3 -->
+            <div class="photo-frame">
+                <div class="corner-decoration top-left"></div>
+                <div class="corner-decoration top-right"></div>
+                <div class="corner-decoration bottom-left"></div>
+                <div class="corner-decoration bottom-right"></div>
+                <div class="love-stamp">💗</div>
+                <div class="frame-ornament top">
+                    <svg viewBox="0 0 100 100">
+                        <path d="M50,30 Q40,20 30,30 Q20,40 30,50 Q40,60 50,70 Q60,60 70,50 Q80,40 70,30 Q60,20 50,30 Z"/>
+                    </svg>
+                </div>
+                <div class="photo-inner">
+                    <img src="images/1000186410.jpg" alt="Memory 3">
+                </div>
+            </div>
+
+            <!-- Photo Frame 4 -->
+            <div class="photo-frame">
+                <div class="corner-decoration top-left"></div>
+                <div class="corner-decoration top-right"></div>
+                <div class="corner-decoration bottom-left"></div>
+                <div class="corner-decoration bottom-right"></div>
+                <div class="love-stamp">💝</div>
+                <div class="frame-ornament top">
+                    <svg viewBox="0 0 100 100">
+                        <path d="M50,30 Q40,20 30,30 Q20,40 30,50 Q40,60 50,70 Q60,60 70,50 Q80,40 70,30 Q60,20 50,30 Z"/>
+                    </svg>
+                </div>
+                <div class="photo-inner">
+                    <img src="images/1000186411.jpg" alt="Memory 4">
+                </div>
+            </div>
+
+            <!-- Photo Frame 5 -->
+            <div class="photo-frame">
+                <div class="corner-decoration top-left"></div>
+                <div class="corner-decoration top-right"></div>
+                <div class="corner-decoration bottom-left"></div>
+                <div class="corner-decoration bottom-right"></div>
+                <div class="love-stamp">💓</div>
+                <div class="frame-ornament top">
+                    <svg viewBox="0 0 100 100">
+                        <path d="M50,30 Q40,20 30,30 Q20,40 30,50 Q40,60 50,70 Q60,60 70,50 Q80,40 70,30 Q60,20 50,30 Z"/>
+                    </svg>
+                </div>
+                <div class="photo-inner">
+                    <img src="images/1000186412.jpg" alt="Memory 5">
+                </div>
+            </div>
+
+            <!-- Photo Frame 6 -->
+            <div class="photo-frame">
+                <div class="corner-decoration top-left"></div>
+                <div class="corner-decoration top-right"></div>
+                <div class="corner-decoration bottom-left"></div>
+                <div class="corner-decoration bottom-right"></div>
+                <div class="love-stamp">💞</div>
+                <div class="frame-ornament top">
+                    <svg viewBox="0 0 100 100">
+                        <path d="M50,30 Q40,20 30,30 Q20,40 30,50 Q40,60 50,70 Q60,60 70,50 Q80,40 70,30 Q60,20 50,30 Z"/>
+                    </svg>
+                </div>
+                <div class="photo-inner">
+                    <img src="images/1000186414.jpg" alt="Memory 6">
+                </div>
+                <!-- <button onclick="nextPage()">Next Surprise 💕</button> -->
+                <div style="text-align:center; margin-top:40px;">
+                    <button onclick="nextPage()">Next Surprise 💕</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create cursor trail hearts
+        let lastHeartTime = 0;
+        const heartThrottle = 50; // Create heart every 50ms
+
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastHeartTime > heartThrottle) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-cursor';
+                const hearts = ['❤️', '💕', '💖', '💗', '💓'];
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = e.pageX + 'px';
+                heart.style.top = e.pageY + 'px';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 1200);
+                
+                lastHeartTime = now;
+            }
+        });
+
+        function nextPage() {
+    window.location.href = "lovecalcultor.html";
+}
+
+        // Create floating hearts periodically
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = '💕';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.bottom = '-50px';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }, 2000);
+
+        // Create falling rose petals
+        function createRosePetal() {
+            const petal = document.createElement('div');
+            petal.className = 'rose-petal';
+            petal.style.left = Math.random() * 100 + '%';
+            petal.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            petal.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(petal);
+
+            setTimeout(() => {
+                petal.remove();
+            }, 13000);
+        }
+
+        // Create initial rose petals
+        for (let i = 0; i < 15; i++) {
+            setTimeout(() => createRosePetal(), i * 300);
+        }
+
+        // Keep creating rose petals
+        setInterval(() => {
+            createRosePetal();
+        }, 2000);
+
+        // Create floating light particles
+        function createLightParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'light-particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            particle.style.width = (Math.random() * 3 + 2) + 'px';
+            particle.style.height = (Math.random() * 3 + 2) + 'px';
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        }
+
+        // Create initial light particles
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => createLightParticle(), i * 200);
+        }
+
+        // Keep creating light particles
+        setInterval(() => {
+            createLightParticle();
+        }, 1000);
+
+        // Create background hearts
+        function createBgHeart() {
+            const bgHeart = document.createElement('div');
+            bgHeart.className = 'bg-heart';
+            bgHeart.textContent = '💖';
+            bgHeart.style.left = Math.random() * 100 + '%';
+            bgHeart.style.fontSize = (Math.random() * 30 + 30) + 'px';
+            bgHeart.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            document.body.appendChild(bgHeart);
+
+            setTimeout(() => {
+                bgHeart.remove();
+            }, 25000);
+        }
+
+        // Create initial background hearts
+        for (let i = 0; i < 8; i++) {
+            setTimeout(() => createBgHeart(), i * 500);
+        }
+
+        // Keep creating background hearts
+        setInterval(() => {
+            createBgHeart();
+        }, 3000);
+
+        // Add sparkle effect on hover
+        const photoFrames = document.querySelectorAll('.photo-frame');
+        
+        photoFrames.forEach(frame => {
+            frame.addEventListener('mouseenter', function() {
+                // Create multiple sparkles
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const sparkle = document.createElement('div');
+                        sparkle.className = 'sparkle';
+                        sparkle.style.left = Math.random() * 100 + '%';
+                        sparkle.style.top = Math.random() * 100 + '%';
+                        this.appendChild(sparkle);
+                        
+                        setTimeout(() => {
+                            sparkle.remove();
+                        }, 1000);
+                    }, i * 100);
+                }
+            });
+
+            // Add click effect with hearts
+            frame.addEventListener('click', function(e) {
+                const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝', '💞'];
+                
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        const burstHeart = document.createElement('div');
+                        burstHeart.style.position = 'absolute';
+                        burstHeart.style.fontSize = '25px';
+                        burstHeart.style.pointerEvents = 'none';
+                        burstHeart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                        
+                        const rect = this.getBoundingClientRect();
+                        burstHeart.style.left = (e.clientX - rect.left) + 'px';
+                        burstHeart.style.top = (e.clientY - rect.top) + 'px';
+                        
+                        const angle = (Math.PI * 2 * i) / 10;
+                        const velocity = 100;
+                        const vx = Math.cos(angle) * velocity;
+                        const vy = Math.sin(angle) * velocity;
+                        
+                        burstHeart.style.animation = 'burstOut 1s ease-out forwards';
+                        burstHeart.style.setProperty('--vx', vx + 'px');
+                        burstHeart.style.setProperty('--vy', vy + 'px');
+                        
+                        this.appendChild(burstHeart);
+                        
+                        setTimeout(() => {
+                            burstHeart.remove();
+                        }, 1000);
+                    }, i * 50);
+                }
+            });
+        });
+
+        // Burst animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes burstOut {
+                0% {
+                    transform: translate(0, 0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(var(--vx), var(--vy)) scale(0.5);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

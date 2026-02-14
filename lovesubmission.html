@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Your Love Story</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.1); }
+            20%, 40% { transform: scale(1); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="40">💕</text></svg>') repeat;
+            opacity: 0.05;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            box-shadow: 
+                0 30px 90px rgba(0,0,0,0.3),
+                0 0 0 1px rgba(255,255,255,0.5) inset,
+                0 0 100px rgba(231, 60, 126, 0.3);
+            padding: 50px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #e73c7e, #23a6d5, #23d5ab, #ee7752);
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(20px);
+        }
+
+        h1 {
+            background: linear-gradient(135deg, #e73c7e 0%, #23a6d5 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 3em;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            position: relative;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 1.1em;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95em;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #e73c7e, #23a6d5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #e73c7e, #23a6d5) border-box;
+            border-radius: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 25px rgba(231, 60, 126, 0.3),
+                0 0 0 4px rgba(231, 60, 126, 0.1);
+        }
+
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #e73c7e 0%, #ee7752 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(231, 60, 126, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(231, 60, 126, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #00C9FF 0%, #92FE9D 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 25px;
+            text-align: center;
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+            box-shadow: 0 10px 30px rgba(0, 201, 255, 0.3);
+            font-weight: 600;
+        }
+
+        .view-stories-btn {
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: #e73c7e;
+            border: 2px solid #e73c7e;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .view-stories-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e73c7e, #ee7752);
+            transition: width 0.6s, height 0.6s, top 0.6s, left 0.6s;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .view-stories-btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .view-stories-btn:hover {
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(231, 60, 126, 0.3);
+        }
+
+        .stories-section {
+            display: none;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(90deg, #e73c7e, #23a6d5, #23d5ab) border-box;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .story-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            border: 2px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #e73c7e, #23a6d5) border-box;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .story-card::before {
+            content: '💕';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 60px;
+            opacity: 0.1;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(231, 60, 126, 0.2);
+        }
+
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            align-items: center;
+        }
+
+        .story-names {
+            font-weight: 600;
+            background: linear-gradient(135deg, #e73c7e 0%, #23a6d5 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.3em;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .story-date {
+            color: #999;
+            font-size: 0.85em;
+            background: rgba(231, 60, 126, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .story-text {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .story-text::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -5px;
+            font-size: 2em;
+            color: #e73c7e;
+            font-family: 'Playfair Display', serif;
+            opacity: 0.3;
+        }
+
+        .story-email {
+            color: #666;
+            font-size: 0.9em;
+            font-style: italic;
+            background: rgba(35, 166, 213, 0.1);
+            padding: 8px 12px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .no-stories {
+            text-align: center;
+            color: #999;
+            padding: 50px;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .heart {
+            color: #e74c3c;
+            font-size: 3em;
+            text-align: center;
+            margin: 20px 0;
+            animation: heartbeat 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(231, 60, 126, 0.5));
+        }
+
+        /* Sparkle effect */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .story-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heart">💕</div>
+        <h1>Share Your Love Story</h1>
+        <p class="subtitle">Every love story is beautiful, but yours is our favorite</p>
+
+        <form id="loveStoryForm">
+            <div class="form-group">
+                <label for="yourName">Your Name</label>
+                <input type="text" id="yourName" required placeholder="Enter your name">
+            </div>
+
+            <div class="form-group">
+                <label for="partnerName">Your Partner's Name</label>
+                <input type="text" id="partnerName" required placeholder="Enter your partner's name">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email (optional)</label>
+                <input type="email" id="email" placeholder="your.email@example.com">
+            </div>
+
+            <div class="form-group">
+                <label for="howMet">How Did You Meet?</label>
+                <textarea id="howMet" required placeholder="Tell us your beautiful story... Where did you meet? What happened? What made you fall in love?"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Share My Story 💝</button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            Thank you for sharing your beautiful story! 💕
+        </div>
+
+        <button class="view-stories-btn" id="viewStoriesBtn">View All Submitted Stories</button>
+
+        <div class="stories-section" id="storiesSection">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Submitted Love Stories</h2>
+            <div id="storiesList"></div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('loveStoryForm');
+        const successMessage = document.getElementById('successMessage');
+        const viewStoriesBtn = document.getElementById('viewStoriesBtn');
+        const storiesSection = document.getElementById('storiesSection');
+        const storiesList = document.getElementById('storiesList');
+
+        // Handle form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const story = {
+                yourName: document.getElementById('yourName').value,
+                partnerName: document.getElementById('partnerName').value,
+                email: document.getElementById('email').value,
+                howMet: document.getElementById('howMet').value,
+                timestamp: new Date().toISOString()
+            };
+
+            // Save to localStorage
+            try {
+                const storyKey = `story_${Date.now()}`;
+                localStorage.setItem(storyKey, JSON.stringify(story));
+                
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Reset form
+                form.reset();
+
+                // Hide success message after 3 seconds
+               setTimeout(() => {
+    successMessage.style.display = 'none';
+
+    // 🔥 Redirect to final page
+    window.location.href = "specialnote.html";
+
+}, 3000);
+
+                // If stories section is visible, refresh it
+                if (storiesSection.style.display === 'block') {
+                    loadStories();
+                }
+            } catch (error) {
+                alert('There was an error saving your story. Please try again!');
+                console.error('Storage error:', error);
+            }
+        });
+
+        // View stories button
+        viewStoriesBtn.addEventListener('click', function() {
+            if (storiesSection.style.display === 'none' || storiesSection.style.display === '') {
+                storiesSection.style.display = 'block';
+                viewStoriesBtn.textContent = 'Hide Stories';
+                loadStories();
+            } else {
+                storiesSection.style.display = 'none';
+                viewStoriesBtn.textContent = 'View All Submitted Stories';
+            }
+        });
+
+        // Load and display all stories
+        function loadStories() {
+            try {
+                // Get all keys from localStorage that start with 'story_'
+                const stories = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('story_')) {
+                        try {
+                            const storyData = localStorage.getItem(key);
+                            if (storyData) {
+                                stories.push(JSON.parse(storyData));
+                            }
+                        } catch (error) {
+                            console.error('Error loading story:', error);
+                        }
+                    }
+                }
+                
+                if (stories.length === 0) {
+                    storiesList.innerHTML = '<div class="no-stories">No stories submitted yet. Be the first to share! 💕</div>';
+                    return;
+                }
+
+                // Sort by timestamp (newest first)
+                stories.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                // Display stories
+                storiesList.innerHTML = stories.map(story => `
+                    <div class="story-card">
+                        <div class="story-header">
+                            <div class="story-names">${story.yourName} & ${story.partnerName}</div>
+                            <div class="story-date">${new Date(story.timestamp).toLocaleDateString()}</div>
+                        </div>
+                        <div class="story-text">${story.howMet}</div>
+                        ${story.email ? `<div class="story-email">Contact: ${story.email}</div>` : ''}
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading stories:', error);
+                storiesList.innerHTML = '<div class="no-stories">Error loading stories. Please try again!</div>';
+            }
+        }
+    </script>
+</body>
+</html>
